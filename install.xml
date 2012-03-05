@@ -13,7 +13,7 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 
 		<author-group>
 			<author>
-				<realname><![CDATA[Amog Baku]]></realname>
+				<realname><![CDATA[Almog Baku]]></realname>
 				<username phpbbcom="no"><![CDATA[AlmogBaku]]></username>
 				<homepage><![CDATA[http://www.almogbaku.com]]></homepage>
 				<email><![CDATA[almog.baku@gmail.om]]></email>
@@ -46,6 +46,7 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 	<action-group>
 		<copy>
 			<file from="root/lib/ckeditor/*.*" to="lib/ckeditor/*.*"/>
+			<file from="root/install-ckeditor.php" to="install-ckeditor.php"/>
 		</copy>
 
 		<open src="includes/functions_posting.php">
@@ -66,6 +67,9 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 	<script type="text/javascript">
 	// ]]>&lt;![CDATA[<![CDATA[
 	function CKEditor_for_phpBB_starter() {
+		CKEDITOR.config.forceSimpleAmpersand=true;
+		CKEDITOR.config.basicEntities=false;
+		CKEDITOR.config.entities=false;
 		CKEDITOR.replace("<!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->signature<!-- ELSE -->message<!-- ENDIF -->", {
 			extraPlugins: 'bbcode',
 			fontSize_sizes: '{L_FONT_TINY}/50%;{L_FONT_SMALL}/85%;{L_FONT_NORMAL}/100%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->;{L_FONT_LARGE}/150%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->;{L_FONT_HUGE}/200%<!-- ENDIF --><!-- ENDIF -->',
@@ -84,6 +88,9 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 			]<!-- IF S_SMILIES_ALLOWED and .smiley -->, //{PHPBB_USE_BOARD_URL_PATH}
 			contentsCss: '{T_STYLESHEET_LINK}',
 			smiley_path: '{SMILEY_CKE_FULLPATH}',
+			basicEntities: false,
+			entities: false,
+			forceSimpleAmpersand: true,
 			smiley_images: [
 				<!-- DEFINE $SLN = 0 --><!-- BEGIN smiley -->
 				<!-- IF $SLN==1 -->,<!-- ENDIF -->'{smiley.SMILEY_FILE}'<!-- DEFINE $SLN = 1 -->
@@ -95,15 +102,32 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 				<!-- END smiley -->
 			]<!-- ENDIF -->
 		});
-		document.getElementById("format-buttons").style.display = 'none';
-		document.getElementById("smiley-box").style.display = 'none';
-		document.getElementById("message-box").style.width = '100%';
+		CKEDITOR.instances.<!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->signature<!-- ELSE -->message<!-- ENDIF -->.on("instanceReady", function(e) {
+			if(e.editor.document.getBody().getHtml().match(/<\/blockquote>$/i))
+				e.editor.document.getBody().setHtml(e.editor.document.getBody().getHtml()+"<br /><br />");
+			document.getElementById("format-buttons").style.display = 'none';
+			document.getElementById("smiley-box").style.display = 'none';
+			document.getElementById("message-box").style.width = '100%';
+		});
 	}
 	onload_functions.push('CKEditor_for_phpBB_starter()');
 	// ]]>]]&gt;<![CDATA[
 	</script>]]></action>
 			</edit>
 		</open>
-	</action-group>
+		<open src="styles/prosilver/theme/common.css">
 
+			<edit>
+				<find><![CDATA[body {]]></find>
+				<action type="before-add"><![CDATA[body.cke_show_borders {
+	padding: 0 5px;
+	font-size: 12px;
+}
+.cke_show_borders li{
+	margin: 0 30px;
+}]]></action>
+			</edit>
+		</open>
+		<php-installer><![CDATA[install-ckeditor.php]]></php-installer>
+	</action-group>
 </mod>
