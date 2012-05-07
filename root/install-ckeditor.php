@@ -60,7 +60,12 @@ $versions = array(
 		'config_add' => array(
 			array('ckeditor_mode', '1'),
 		),
-		'cache_purge' => array('', 'imageset', 'template', 'theme', 'auth'),
+		//Cache purge		
+		'cache_purge' => array(
+			array('imageset', 0),
+			array('theme', 0),
+			array(),
+		),
 	),
 );
 
