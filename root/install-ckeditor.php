@@ -61,11 +61,7 @@ $versions = array(
 			array('ckeditor_mode', '1'),
 		),
 		//Cache purge		
-		'cache_purge' => array(
-			array('imageset', 0),
-			array('theme', 0),
-			array(),
-		),
+		'cache_purge' => array('imageset', 'template', 'theme', ''),
 	),
 );
 
