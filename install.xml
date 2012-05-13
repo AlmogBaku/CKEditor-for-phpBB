@@ -47,7 +47,7 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 		<open src="includes/functions_posting.php">
 			<edit>
 				<find><![CDATA[$root_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path;]]></find>
-				<action type="after-add"><![CDATA[$template->assign_var("SMILEY_CKE_FULLPATH", generate_board_url().'/'.$config['smilies_path'].'/');]]></action>
+				<action type="after-add"><![CDATA[$template->assign_var('SMILEY_CKE_FULLPATH', generate_board_url() . '/' . $config['smilies_path'] . '/');]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA['SMILEY_IMG'	=> $root_path . $config['smilies_path'] . '/' . $row['smiley_url'],]]></find>
