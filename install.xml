@@ -10,7 +10,6 @@
 		<description lang="en"><![CDATA[CKEditor for phpBB3]]></description>
 		<author-notes lang="en"><![CDATA[You may download the last version of CKEditor from their website.
 And dont forget refresh your theme cache after installing!]]></author-notes>
-
 		<author-group>
 			<author>
 				<realname><![CDATA[Almog Baku]]></realname>
@@ -20,7 +19,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 				<contributions-group>
 					<contributions status="current" position="Developer"/>
 				</contributions-group>
-
 			</author>
 			<author>
 				<realname><![CDATA[Naim A]]></realname>
@@ -30,7 +28,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 					<contributions status="past" position="Developer"/>
 				</contributions-group>
 			</author>
-
 		</author-group>
 		<mod-version>1.0.0</mod-version>
 		<installation>
@@ -38,7 +35,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 			<time>420</time>
 			<target-version>3.0.9</target-version>
 		</installation>
-
 		<link-group>
 			<link type="contrib" href="http://www.ckeditor.com" lang="en">CKEditor</link>
 		</link-group>
@@ -48,7 +44,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 			<file from="root/lib/ckeditor/*.*" to="lib/ckeditor/*.*"/>
 			<file from="root/install-ckeditor.php" to="install-ckeditor.php"/>
 		</copy>
-
 		<open src="includes/functions_posting.php">
 			<edit>
 				<find><![CDATA[$root_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path;]]></find>
@@ -58,7 +53,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 				<find><![CDATA['SMILEY_IMG'	=> $root_path . $config['smilies_path'] . '/' . $row['smiley_url'],]]></find>
 				<action type="after-add"><![CDATA['SMILEY_FILE'	=> $row['smiley_url'],]]></action>
 			</edit>
-
 		</open>
 		<open src="styles/prosilver/template/posting_editor.html">
 			<edit>
@@ -116,7 +110,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 			</edit>
 		</open>
 		<open src="styles/prosilver/theme/common.css">
-
 			<edit>
 				<find><![CDATA[body {]]></find>
 				<action type="before-add"><![CDATA[body.cke_show_borders {
@@ -129,5 +122,6 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 			</edit>
 		</open>
 		<php-installer><![CDATA[install-ckeditor.php]]></php-installer>
+		<diy-instructions lang="en"><![CDATA[Refresh your theme cache after installing!]]></diy-instructions>
 	</action-group>
 </mod>
