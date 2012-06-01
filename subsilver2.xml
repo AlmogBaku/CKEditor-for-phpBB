@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[CKEditor]]></title>
+		<description lang="en"><![CDATA[CKEditor for phpBB3]]></description>
+		<author-notes lang="en"><![CDATA[You may download the last version of CKEditor from their website.
+And dont forget refresh your theme cache after installing!]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Almog Baku]]></realname>
+				<username phpbbcom="no"><![CDATA[AlmogBaku]]></username>
+				<homepage><![CDATA[http://www.almogbaku.com]]></homepage>
+				<email><![CDATA[almog.baku@gmail.om]]></email>
+				<contributions-group>
+					<contributions status="current" position="Developer"/>
+				</contributions-group>
+			</author>
+			<author>
+				<realname><![CDATA[Naim A]]></realname>
+				<username phpbbcom="no"><![CDATA[naim]]></username>
+				<homepage><![CDATA[http://naim94.homedns.org]]></homepage>
+				<contributions-group>
+					<contributions status="past" position="Developer"/>
+				</contributions-group>
+			</author>
+		</author-group>
+		<mod-version>1.0.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>420</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+		<link-group>
+			<link type="contrib" href="http://www.ckeditor.com" lang="en">CKEditor</link>
+		</link-group>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/lib/ckeditor/*.*" to="lib/ckeditor/*.*"/>
+			<file from="root/install-ckeditor.php" to="install-ckeditor.php"/>
+		</copy>
+		<open src="includes/functions_posting.php">
+			<edit>
+				<find><![CDATA[$root_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path;]]></find>
+				<action type="after-add"><![CDATA[$template->assign_var('SMILEY_CKE_FULLPATH', generate_board_url() . '/' . $config['smilies_path'] . '/');]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['SMILEY_IMG'	=> $root_path . $config['smilies_path'] . '/' . $row['smiley_url'],]]></find>
+				<action type="after-add"><![CDATA['SMILEY_FILE'	=> $row['smiley_url'],]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/posting_body.html">
+			<edit>
+				<find><![CDATA[<!-- INCLUDE posting_buttons.html -->]]></find>
+				<action type="before-add"><![CDATA[	<script type="text/javascript" src="{ROOT_PATH}lib/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript">
+	// ]]>&lt;![CDATA[<![CDATA[
+	function CKEditor_for_phpBB_starter() {
+		CKEDITOR.config.forceSimpleAmpersand=true;
+		CKEDITOR.config.basicEntities=false;
+		CKEDITOR.config.entities=false;
+		CKEDITOR.replace("<!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->signature<!-- ELSE -->message<!-- ENDIF -->", {
+			extraPlugins: 'bbcode',
+			fontSize_sizes: '{L_FONT_TINY}/50%;{L_FONT_SMALL}/85%;{L_FONT_NORMAL}/100%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->;{L_FONT_LARGE}/150%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->;{L_FONT_HUGE}/200%<!-- ENDIF --><!-- ENDIF -->',
+			toolbar:
+			[
+				['Bold', 'Italic', 'Underline'],
+				['Undo', 'Redo'],
+				['NumberedList','BulletedList'<!-- IF S_BBCODE_QUOTE -->,'-', 'Blockquote'<!-- ENDIF -->],
+				<!-- IF S_BBCODE_IMG or S_LINKS_ALLOWED or S_BBCODE_FLASH --><!-- DEFINE $PHN = 0 -->
+				[<!-- IF S_BBCODE_IMG --><!-- DEFINE $PHN = 1 -->'Image'<!-- ENDIF -->
+				<!-- IF S_LINKS_ALLOWED --><!-- IF $PHN>0 -->,<!-- ENDIF --> 'Link', 'Unlink'<!-- DEFINE $PHN = 1 --><!-- ENDIF -->
+				<!-- IF S_BBCODE_FLASH --><!-- IF $PHN>0 -->,<!-- ENDIF --> 'Flash'<!-- ENDIF -->],
+				<!-- ENDIF -->
+				['FontSize', 'TextColor' <!-- IF S_SMILIES_ALLOWED and .smiley -->, 'Smiley'<!-- ENDIF -->],
+				['Source']
+			]<!-- IF S_SMILIES_ALLOWED and .smiley -->, //{PHPBB_USE_BOARD_URL_PATH}
+			contentsCss: '{T_STYLESHEET_LINK}',
+			smiley_path: '{SMILEY_CKE_FULLPATH}',
+			basicEntities: false,
+			entities: false,
+			forceSimpleAmpersand: true,
+			smiley_images: [
+				<!-- DEFINE $SLN = 0 --><!-- BEGIN smiley -->
+				<!-- IF $SLN==1 -->,<!-- ENDIF -->'{smiley.SMILEY_FILE}'<!-- DEFINE $SLN = 1 -->
+				<!-- END smiley -->
+			],
+			smiley_descriptions: [
+				<!-- DEFINE $SLN = 0 --><!-- BEGIN smiley -->
+				<!-- IF $SLN==1 -->,<!-- ENDIF -->'{smiley.SMILEY_DESC}'<!-- DEFINE $SLN = 1 -->
+				<!-- END smiley -->
+			]<!-- ENDIF -->
+		});
+		CKEDITOR.instances.<!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->signature<!-- ELSE -->message<!-- ENDIF -->.on("instanceReady", function(e) {
+			if(e.editor.document.getBody().getHtml().match(/<\/blockquote>$/i))
+				e.editor.document.getBody().setHtml(e.editor.document.getBody().getHtml()+"<br /><br />");
+			document.getElementById("format-buttons").style.display = 'none';
+			document.getElementById("smiley-box").style.display = 'none';
+			document.getElementById("message-box").style.width = '100%';
+		});
+	}
+	onload_functions.push('CKEditor_for_phpBB_starter()');
+	// ]]>]]&gt;<![CDATA[
+	</script>]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/theme/stylesheet.css">
+			<edit>
+				<find><![CDATA[body {]]></find>
+				<action type="before-add"><![CDATA[body.cke_show_borders {
+	padding: 0 5px;
+	font-size: 12px;
+}
+.cke_show_borders li{
+	margin: 0 30px;
+}]]></action>
+			</edit>
+		</open>
+		<php-installer><![CDATA[install-ckeditor.php]]></php-installer>
+		<diy-instructions lang="en"><![CDATA[Refresh your theme cache after installing!]]></diy-instructions>
+	</action-group>
+</mod>
