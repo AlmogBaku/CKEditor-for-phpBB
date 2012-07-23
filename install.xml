@@ -66,7 +66,7 @@ And dont forget refresh your theme cache after installing!]]></author-notes>
 		CKEDITOR.config.entities=false;
 		CKEDITOR.replace("<!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->signature<!-- ELSE -->message<!-- ENDIF -->", {
 			extraPlugins: 'bbcode',
-			fontSize_sizes: '{L_FONT_TINY}/50%;{L_FONT_SMALL}/85%;{L_FONT_NORMAL}/100%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->;{L_FONT_LARGE}/150%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->;{L_FONT_HUGE}/200%<!-- ENDIF --><!-- ENDIF -->',
+			fontSize_sizes: '{LA_FONT_TINY}/50%;{LA_FONT_SMALL}/85%;{LA_FONT_NORMAL}/100%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->;{LA_FONT_LARGE}/150%<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->;{LA_FONT_HUGE}/200%<!-- ENDIF --><!-- ENDIF -->',
 			toolbar:
 			[
 				['Bold', 'Italic', 'Underline'],
